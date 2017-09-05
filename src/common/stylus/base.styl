@@ -1,0 +1,42 @@
+/**
+** base.styl
+** 主要存放公共的一些媒体查询的样式
+ */
+
+/**
+** 设置一些标签的基本样式
+ */
+body, html
+  line-height: 1
+  font-weight: bold
+  font-family: 'PingFang SC', 'STHeitiSC-Light',
+    'Helvetica-Light', Arial, sans-serif
+// 利用伪类after来清除浮动
+.clearfix
+  display: inline-block
+  &:after
+    display: block
+    content: " "
+    height: 0
+    line-height: 0
+    clear: both
+    visibility: hidden
+
+/**
+** 通过媒体查询media根据设备的像素比不同来让border更趋近于1px
+** 设备像素比在1.5以下就是1px
+** 设备像素比在1.5-2之间的就是1.5*0.7约等于1px
+** 设备像素比在2以上的就是0.5* 2等于1px
+** 通过这种方式来匹配任何设备下的一像素问题
+ */
+@media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5)
+  .border-1px
+    &::after
+      -webkit-transform: scaleY(0.7)
+      tranform: scaleY(0.7)
+
+@media (-webkit-min-device-pixel-ratio: 2), (max-device-pixel-ratio: 2)
+  .border-1px
+    &::after
+      -webkit-transform: scaleY(0.5)
+      transform: scaleY(0.5)
